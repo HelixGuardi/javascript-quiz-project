@@ -30,7 +30,7 @@ class Quiz {
 
     checkAnswer(answer) { //string
         //should increase correctAnswers by 1 when called with a correct answer for the currect question
-        if(answer === this.currentQuestionIndex.correctAnswers) {
+        if(answer === this.questions[this.currentQuestionIndex].answer) {
             this.correctAnswers++;
         }
         
