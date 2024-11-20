@@ -44,18 +44,16 @@ class Quiz {
         }
     }
 
-    filterQuestionsByDifficulty(difficulty) {
-        if(difficulty < 1 || difficulty > 3) {
+    filterQuestionsByDifficulty(difficulty) {       
+        if(difficulty < 1 || difficulty > 3 || typeof difficulty !== "number") {
             return this.questions;
         }
 
-        const filteredArr = this.questions.filter((eachQuestions) => {
+        this.questions = this.questions.filter((eachQuestions) => {
             if(eachQuestions.difficulty === difficulty) {
-                return this.questions;
+                return true;
             };
-        });
-
-        return filteredArr;
+        });     
     }
 
     averageDifficulty() {
