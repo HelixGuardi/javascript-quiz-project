@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       //seleccionamos las cuestiones e iteramos sobre ellas con un forEach, indicando cada Choice y su index correspondiente
       question.choices.forEach((eachChoice, index) => {
-      const newQuestion = document.createElement('li'); // creamos un nuevo elemento 'li'
+      const choicesOptions = document.createElement('li'); // creamos un nuevo elemento 'li'
 
       const input = document.createElement('input'); // creamos un nuevo elemento 'input' y le agregamos sus propiedades
       input.type = 'radio';
@@ -149,11 +149,11 @@ document.addEventListener("DOMContentLoaded", () => {
       label.textContent = eachChoice;
 
       // añadimos "input" y "label" a nuestro "li"
-      newQuestion.appendChild(input);
-      newQuestion.appendChild(label);
+      choicesOptions.appendChild(input);
+      choicesOptions.appendChild(label);
 
       //añadimos todo esto al choiceContainer que es nuestro <ul>#choices en index.html, donde se van a crear nuestros 'li'
-      choiceContainer.appendChild(newQuestion);
+      choiceContainer.appendChild(choicesOptions);
     });
   }
 
@@ -167,18 +167,28 @@ document.addEventListener("DOMContentLoaded", () => {
     // YOUR CODE HERE:
     //
     // 1. Get all the choice elements. You can use the `document.querySelectorAll()` method.
-
+    const choicesElements = document.querySelectorAll("input[name = 'choice']");
 
     // 2. Loop through all the choice elements and check which one is selected
       // Hint: Radio input elements have a property `.checked` (e.g., `element.checked`).
       //  When a radio input gets selected the `.checked` property will be set to true.
       //  You can use check which choice was selected by checking if the `.checked` property is true.
-
+    choicesElements.forEach((eachElem) => {
+      if(eachElem.checked) {
+        selectedAnswer = eachElem.value; //eachChoice from questions.choices, but the selected one
+      }
+    });
       
     // 3. If an answer is selected (`selectedAnswer`), check if it is correct and move to the next question
       // Check if selected answer is correct by calling the quiz method `checkAnswer()` with the selected answer.
       // Move to the next question by calling the quiz method `moveToNextQuestion()`.
       // Show the next question by calling the function `showQuestion()`.
+    if(selectedAnswer) {
+      quiz.checkAnswer(selectedAnswer);
+      quiz.moveToNextQuestion();
+      showQuestion();
+    }
+
   }  
 
 
@@ -195,7 +205,21 @@ document.addEventListener("DOMContentLoaded", () => {
     endView.style.display = "flex";
     
     // 3. Update the result container (div#result) inner text to show the number of correct answers out of total questions
-    resultContainer.innerText = `You scored 1 out of 1 correct answers!`; // This value is hardcoded as a placeholder
+    resultContainer.innerText = `You scored ${quiz.correctAnswers} out of ${quiz.questions.length} correct answers!`;
+  }
+
+  function restarQuizHandler() {
+    document.getElementById('end-view').classList.add('hidden');
+    document.getElementById('quiz-view').classList.remove('hidden');
+
+    quiz.currentQuestionIndex = 0;
+    quiz.correctAnswers = 0;
+    quiz.questions.forEach(question => question.shuffleChoices());
+
+    showQuestion();
   }
   
+  document.getElementById('restartButton').addEventListener('click', () => {
+    restartQuizHandler()
+  });
 });
