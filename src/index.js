@@ -208,9 +208,12 @@ document.addEventListener("DOMContentLoaded", () => {
     resultContainer.innerText = `You scored ${quiz.correctAnswers} out of ${quiz.questions.length} correct answers!`;
   }
 
-  function restarQuizHandler() {
-    document.getElementById('end-view').classList.add('hidden');
-    document.getElementById('quiz-view').classList.remove('hidden');
+  function restartQuizHandler() {
+    const endViewHidden = document.getElementById('endView');
+    const quizViewDisplay = document.getElementById('quizView');
+
+    endViewHidden.style.display = "none"
+    quizViewDisplay.style.display = "flex"
 
     quiz.currentQuestionIndex = 0;
     quiz.correctAnswers = 0;
@@ -220,6 +223,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   
   document.getElementById('restartButton').addEventListener('click', () => {
-    restartQuizHandler()
+    restartQuizHandler();
   });
 });
