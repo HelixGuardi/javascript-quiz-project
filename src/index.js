@@ -56,13 +56,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Show first question
   showQuestion();
+  let intervalId;
+  startCountdown();
 
 
   /************  TIMER  ************/
 
-  let timer;
+  function startCountdown() {
+    intervalId = setInterval(() => {
+      quiz.timeRemaining--;
+      // console.log("time remaining")
+      const minutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
+      const seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
+      const timeRemainingContainer = document.getElementById("timeRemaining");
+      timeRemainingContainer.innerText = `${minutes}:${seconds}`;
 
+      if(quiz.timeRemaining === 0) {
+        clearInterval(intervalId);
+        showResults();
+      }
 
+    }, 1000);
+  }
+
+  
   /************  EVENT LISTENERS  ************/
 
   nextButton.addEventListener("click", nextButtonHandler);
@@ -206,7 +223,12 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // 3. Update the result container (div#result) inner text to show the number of correct answers out of total questions
     resultContainer.innerText = `You scored ${quiz.correctAnswers} out of ${quiz.questions.length} correct answers!`;
+
+    clearInterval(intervalId)
+
   }
+
+
 
   function restartQuizHandler() {
     const endViewHidden = document.getElementById('endView');
@@ -219,7 +241,13 @@ document.addEventListener("DOMContentLoaded", () => {
     quiz.correctAnswers = 0;
     quiz.questions.forEach(question => question.shuffleChoices());
 
+    quiz.timeRemaining = quizDuration;
+    
+    startCountdown();
     showQuestion();
+    
+
+
   }
   
   document.getElementById('restartButton').addEventListener('click', () => {
