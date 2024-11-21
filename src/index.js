@@ -26,11 +26,20 @@ document.addEventListener("DOMContentLoaded", () => {
   
   // Array with the quiz questions
   const questions = [
-    new Question("What is 2 + 2?", ["3", "4", "5", "6"], "4", 1), //agrega preguntas al array questions
-    new Question("What is the capital of France?", ["Miami", "Paris", "Oslo", "Rome"], "Paris", 1), // agrega preguntas al array questions
-    new Question("Who created JavaScript?", ["Plato", "Brendan Eich", "Lea Verou", "Bill Gates"], "Brendan Eich", 2), // agrega preguntas al array questions
-    new Question("What is the mass–energy equivalence equation?", ["E = mc^2", "E = m*c^2", "E = m*c^3", "E = m*c"], "E = mc^2", 3), // agrega preguntas al array questions
+    // new Question("What is 2 + 2?", ["3", "4", "5", "6"], "4", 1), //agrega preguntas al array questions
+    // new Question("What is the capital of France?", ["Miami", "Paris", "Oslo", "Rome"], "Paris", 1), // agrega preguntas al array questions
+    // new Question("Who created JavaScript?", ["Plato", "Brendan Eich", "Lea Verou", "Bill Gates"], "Brendan Eich", 2), // agrega preguntas al array questions
+    // new Question("What is the mass–energy equivalence equation?", ["E = mc^2", "E = m*c^2", "E = m*c^3", "E = m*c"], "E = mc^2", 3), // agrega preguntas al array questions
     // Add more questions here
+    new Question("Rayo-mcQueen, ¿tiene seguro de vida o seguro de coche?", ["Seguro de vida", "Seguro de coche", "No tiene seguro", "¡Ka-chow!"], "¡Ka-chow!", 3),
+
+    new Question("Si el veneno caduca, ¿envenena más o menos?", ["Más", "Menos", "Soy Imortal bb", "Depende, si soy YO el veneno: mata"], "Depende, si soy YO el veneno: mata", 1),
+
+    new Question("¿Es posible respirar y tragar al mismo tiempo?", ["Si", "No lo se", "Lo acabo de intentar", "No lo se y me da rabia quien lo sabe"], "Lo acabo de intentar", 3),
+
+    new Question("¿Si el sol emite luz y está en el espacio, ¿Por que hay luz aqui en la tierra y en el espacio no?", ["Paso de responder, estoy saturado por el bootcamp", "El que hizo está pregunta es un genio incomprendido", "En realidad soy yo el que brilla", "Hoy está lloviendo"], "Paso de responder, estoy saturado por el bootcamp", 1),
+
+    new Question("¿Si Pinocho dice que su nariz va a crecer, será verdad o mentira?", ["Verdad", "Mentira", "Quien fue el tarado que inventó está pregunta?", "Cari, es una paradoja y no se puede solucionar. Me he quedao tiesa..."], "Cari, es una paradoja y no se puede solucionar. Me he quedao tiesa...", 2)
   ];
   const quizDuration = 120; // 120 seconds (2 minutes) //duración del quiz
 
@@ -242,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
     quiz.questions.forEach(question => question.shuffleChoices());
 
     quiz.timeRemaining = quizDuration;
-    
+
     startCountdown();
     showQuestion();
     
